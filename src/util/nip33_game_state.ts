@@ -24,13 +24,7 @@ export interface GameStateContent {
 
 export interface GameStateEvent extends NIP01.Event {
   kind: typeof JESTER_GAME_STATE_KIND
-  tags: [
-    ['d', string], // Game ID (d-tag für NIP-33)
-    ['white', string], // Weiß Spieler pubkey
-    ['black', string], // Schwarz Spieler pubkey
-    ['started', string], // Start-Timestamp
-    ...string[][]
-  ]
+  // tags wird von NIP01.Event geerbt
 }
 
 /**

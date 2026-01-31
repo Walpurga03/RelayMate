@@ -4,7 +4,7 @@
  * Stellt sicher, dass nur legale Züge ausgeführt werden können
  */
 
-import { Chess } from 'chess.js'
+import * as Chess from 'chess.js'
 import { ValidFen } from './chess'
 
 export interface ValidationResult {
@@ -23,7 +23,7 @@ export function validateMove(
   promotion?: string
 ): ValidationResult {
   try {
-    const game = new Chess(fen)
+    const game = new Chess.Chess(fen)
     
     // Versuche den Zug auszuführen
     const move = game.move({ from, to, promotion })
@@ -52,7 +52,7 @@ export function validateMove(
  */
 export function validatePlayerTurn(fen: string, playerColor: 'w' | 'b'): ValidationResult {
   try {
-    const game = new Chess(fen)
+    const game = new Chess.Chess(fen)
     const turn = game.turn()
     
     if (turn !== playerColor) {
@@ -76,7 +76,7 @@ export function validatePlayerTurn(fen: string, playerColor: 'w' | 'b'): Validat
  */
 export function validateFen(fen: string): ValidationResult {
   try {
-    const game = new Chess(fen)
+    const game = new Chess.Chess(fen)
     
     // Wenn Chess.js den FEN akzeptiert, ist er gültig
     return { valid: true }
@@ -98,7 +98,7 @@ export function checkGameStatus(fen: string): {
   inCheck: boolean
 } {
   try {
-    const game = new Chess(fen)
+    const game = new Chess.Chess(fen)
     
     const isGameOver = game.isGameOver()
     const inCheck = game.inCheck()
@@ -145,7 +145,7 @@ export function checkGameStatus(fen: string): {
  */
 export function getLegalMoves(fen: string, square?: string): string[] {
   try {
-    const game = new Chess(fen)
+    const game = new Chess.Chess(fen)
     
     if (square) {
       return game.moves({ square, verbose: false })
@@ -163,7 +163,7 @@ export function getLegalMoves(fen: string, square?: string): string[] {
  */
 export function requiresPromotion(fen: string, from: string, to: string): boolean {
   try {
-    const game = new Chess(fen)
+    const game = new Chess.Chess(fen)
     const piece = game.get(from)
     
     if (!piece || piece.type !== 'p') {
@@ -213,7 +213,7 @@ export function sanitizeMoveInput(input: string): { from: string; to: string } |
  */
 export function validateGameHistory(moves: string[], startFen?: string): ValidationResult {
   try {
-    const game = new Chess(startFen)
+    const game = new Chess.Chess(startFen)
     
     for (let i = 0; i < moves.length; i++) {
       const move = game.move(moves[i])

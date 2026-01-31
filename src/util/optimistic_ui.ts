@@ -4,7 +4,7 @@
  * Ermöglicht es, Züge sofort im UI anzuzeigen, bevor sie signiert und an Relays gesendet wurden.
  */
 
-import { Chess } from 'chess.js'
+import * as Chess from 'chess.js'
 import { ValidFen } from './chess'
 
 export enum OptimisticMoveStatus {
@@ -36,7 +36,7 @@ class OptimisticMoveManager {
    */
   addMove(from: string, to: string, promotion?: string, currentFen?: string): OptimisticMove | null {
     try {
-      const game = new Chess(currentFen)
+      const game = new Chess.Chess(currentFen)
       const move = game.move({ from, to, promotion })
       
       if (!move) {

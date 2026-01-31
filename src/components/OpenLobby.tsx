@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Card, Button, Badge } from 'react-daisyui'
-import { useNostrEvents } from '../context/NostrEventsContext'
+import { useOutgoingNostrEvents } from '../context/NostrEventsContext'
 import PlayerProfile from './PlayerProfile'
 import * as NIP01 from '../util/nostr/nip01'
 
@@ -25,7 +25,7 @@ interface ChessChallenge {
 export default function OpenLobby() {
   const [challenges, setChallenges] = useState<ChessChallenge[]>([])
   const [loading, setLoading] = useState(true)
-  const { subscribe } = useNostrEvents()
+  const outgoingNostr = useOutgoingNostrEvents()
 
   useEffect(() => {
     // Filter für offene Herausforderungen
@@ -57,12 +57,14 @@ export default function OpenLobby() {
       setLoading(false)
     }
 
-    const subId = subscribe([filter], handleEvent)
+    // TODO: Implementiere subscription mit outgoingNostr
+    // Verwende outgoingNostr.emit() um REQ zu senden
+    setLoading(false)
 
     return () => {
       // TODO: Cleanup subscription
     }
-  }, [subscribe])
+  }, [outgoingNostr])
 
   const handleAcceptChallenge = (challenge: ChessChallenge) => {
     // TODO: Implementiere Spiel-Akzeptanz-Logik

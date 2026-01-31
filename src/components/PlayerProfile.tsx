@@ -9,7 +9,7 @@ import {
   createMetadataFilter,
   verifyNip05 
 } from '../util/nostr_profiles'
-import { useNostrEvents } from '../context/NostrEventsContext'
+import { useOutgoingNostrEvents } from '../context/NostrEventsContext'
 
 interface PlayerProfileProps {
   pubkey: string
@@ -34,7 +34,7 @@ export default function PlayerProfile({
   const [profile, setProfile] = useState<NostrProfile | null>(null)
   const [verified, setVerified] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
-  const { subscribe } = useNostrEvents()
+  const outgoingNostr = useOutgoingNostrEvents()
 
   useEffect(() => {
     // Versuche zuerst aus dem Cache zu laden
@@ -60,13 +60,15 @@ export default function PlayerProfile({
       }
     }
 
-    const subId = subscribe([filter], handleEvent)
+    // TODO: Implementiere subscription mit outgoingNostr
+    // Verwende outgoingNostr.emit() um REQ zu senden
+    setLoading(false)
 
     return () => {
       // Cleanup subscription wenn Component unmounted
       // TODO: Implement unsubscribe in NostrEventsContext
     }
-  }, [pubkey, subscribe])
+  }, [pubkey, outgoingNostr])
 
   const displayName = profile ? formatDisplayName(profile, pubkey) : formatPubkey(pubkey)
   

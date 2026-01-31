@@ -107,7 +107,7 @@ export default function ZapButton({
         {showLabel && 'Zap'}
       </Button>
 
-      <Modal open={showModal} onClickBackdrop={() => setShowModal(false)}>
+      <Modal open={showModal}>
         <Modal.Header className="font-bold">
           ⚡ Zap senden
         </Modal.Header>
