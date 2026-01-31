@@ -2,9 +2,14 @@ const developmentRelays = ['ws://localhost:7000', 'wss://non-existing-nostr-rela
 
 const publicRelays = [
   'wss://relay.damus.io',
-  'wss://nostr.swiss-enigma.ch',
-  'wss://nostr.einundzwanzig.space',
-  'wss://offchain.pub',
+  'wss://nos.lol',
+  'wss://relay.nostr.band',
+  'wss://nostr.wine',
+  'wss://relay.snort.social',
+  // additional relays:
+  // 'wss://nostr.swiss-enigma.ch',
+  // 'wss://nostr.einundzwanzig.space',
+  // 'wss://offchain.pub',
   // inactive relays (last checked on 2023-02-01):
   // 'wss://nostr-pub.wellorder.net',
   // 'wss://relay.nostr.info',

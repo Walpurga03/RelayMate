@@ -6,7 +6,19 @@ module.exports = {
     'node_modules/react-daisyui/dist/**/*.js'
   ],
   theme: {
-    extend: {},
+    extend: {
+      // Mobile-optimierte Breakpoints
+      screens: {
+        'xs': '475px',
+      },
+      // Touch-freundliche Mindestgrößen
+      minHeight: {
+        'touch': '44px',
+      },
+      minWidth: {
+        'touch': '44px',
+      },
+    },
   },
   plugins: [
     require('daisyui')
@@ -15,3 +27,4 @@ module.exports = {
     themes: ["light", "dark", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter"],
   },
 }
+
