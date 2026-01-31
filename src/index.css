@@ -8,6 +8,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.bg-app-shell {
+  background-color: hsl(var(--b1));
+  background-image:
+    radial-gradient(circle at 20% 20%, hsl(var(--p) / 0.12), transparent 35%),
+    radial-gradient(circle at 80% 0%, hsl(var(--s) / 0.1), transparent 30%),
+    radial-gradient(circle at 50% 80%, hsl(var(--a) / 0.14), transparent 35%);
+  min-height: 100vh;
+}
+
+.surface-card {
+  background-color: hsl(var(--b1) / 0.82);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  backdrop-filter: blur(12px);
+}
+
 .hover\:transform-scale-103:hover {
   --tw-scale-x: 1.03;
   --tw-scale-y: 1.03;

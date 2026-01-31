@@ -26,8 +26,8 @@ export function Sidebar({ title, children }: PropsWithChildren<SidebarProps>) {
   const displayPubKey = useMemo(() => publicKeyOrNull && AppUtils.pubKeyDisplayName(publicKeyOrNull), [publicKeyOrNull])
 
   return (
-    <div className="menu w-80 md:w-80 bg-base-100 h-screen">
-      <Menu horizontal={false} className="gap-1">
+    <div className="menu w-80 md:w-80 bg-base-200/70 backdrop-blur h-screen border-r border-base-300/60">
+      <Menu horizontal={false} className="gap-1 text-sm">
         <Menu.Title className="mb-2">
           <span>{title}</span>
         </Menu.Title>

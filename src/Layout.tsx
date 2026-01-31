@@ -22,11 +22,13 @@ export function Layout({ title, children, drawer }: PropsWithChildren<LayoutProp
         end={false}
         open={sidebarVisible}
         onClickOverlay={toggleSidebarVisible}
-        className="min-h-screen"
+        className="min-h-screen bg-app-shell"
       >
         <Navbar title={title} toggleSidebar={toggleSidebarVisible} />
-        <div className="md:container mx-auto">
-          <div className="px-4 pb-32">{children}</div>
+        <div className="md:container mx-auto px-4 pb-32">
+          <div className="surface-card mt-4 shadow-2xl shadow-base-300/40 border border-base-200/60">
+            {children}
+          </div>
         </div>
         <Footer />
       </Drawer>

@@ -27,8 +27,8 @@ export function Navbar({ title, toggleSidebar }: NavbarProps) {
   const displayPubKey = useMemo(() => publicKeyOrNull && AppUtils.pubKeyDisplayName(publicKeyOrNull), [publicKeyOrNull])
 
   return (
-    <div className="bg-base-200 text-base-200-content">
-      <DaisyNavbar className="md:container mx-auto gap-2 mb-6">
+    <div className="bg-base-200/70 text-base-200-content backdrop-blur border-b border-base-300/60 shadow-sm sticky top-0 z-40">
+      <DaisyNavbar className="md:container mx-auto gap-2 py-3 px-3 md:px-0">
         <DaisyNavbar.Start className="ml-2">
           <div className="flex-none md:hidden">
             <Button shape="square" color="ghost" onClick={toggleSidebar}>
@@ -49,7 +49,7 @@ export function Navbar({ title, toggleSidebar }: NavbarProps) {
         <DaisyNavbar.Center className="flex-none md:hidden">
           <NavbarTitle title={title} />
         </DaisyNavbar.Center>
-        <DaisyNavbar.End>
+        <DaisyNavbar.End className="gap-2">
           <div className="flex-none md:hidden">
             <Menu horizontal={true} className="gap-1">
               {settings.currentGameJesterId && (
@@ -63,7 +63,7 @@ export function Navbar({ title, toggleSidebar }: NavbarProps) {
             </Menu>
           </div>
           <div className="flex-none hidden md:block">
-            <Menu horizontal={true} className="gap-1 p-0 items-center">
+            <Menu horizontal={true} className="gap-1 p-0 items-center text-sm">
               {settings.currentGameJesterId && (
                 <Menu.Item>
                   <NavLink to={ROUTES.currentGame} className="rounded-lg" title="Active Game">
