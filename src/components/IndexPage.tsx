@@ -1,8 +1,9 @@
 import { useRef, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 import { useIncomingNostrEvents } from '../context/NostrEventsContext'
 import { Identity, useSettings } from '../context/SettingsContext'
+import ROUTES from '../routes'
 
 import { GenerateRandomIdentityButton } from '../components/IdentityButtons'
 import { GameById } from '../components/jester/GameById'
@@ -33,29 +34,33 @@ function CreateIdentityStep() {
 
   return (
     <>
-      <div className="flex justify-center text-center">
-        <H1>Hello, fellow chess player.</H1>
-      </div>
-      <div className="mt-6 mb-4 flex justify-center text-center">
-        <span className="font-bold">Wanna start playing immediately? Let's go!</span>
-      </div>
-      <div className="flex justify-center items-center space-x-4 my-4">
-        <Button
-          color="secondary"
-          variant="outline"
-          size="lg"
-          ref={generateRandomIdentityButtonRef}
-          className="w-full max-w-sm"
-        >
-          New Identity
-          <GenerateRandomIdentityButton buttonRef={generateRandomIdentityButtonRef} />
-        </Button>
-      </div>
-
-      <div className="flex justify-center items-center space-x-4 my-4">
-        <Button color="ghost" variant="link" size="lg" className="w-full max-w-sm" onClick={viewLobbyButtonClicked}>
-          Browse all games
-        </Button>
+      <div className="text-center space-y-4">
+        <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-base-200/60 border border-base-300/60">
+          <span className="font-semibold text-lg">jester</span>
+          <span className="text-xs tracking-[0.18em] uppercase px-3 py-1 rounded-full bg-primary/15 text-primary font-semibold">
+            beta
+          </span>
+        </div>
+        <div className="space-y-2">
+          <H1>Chess on nostr</H1>
+          <p className="text-base-content/70 max-w-2xl mx-auto">
+            Hello, fellow chess player. Spin up an identity and jump into a game instantly.
+          </p>
+        </div>
+        <div className="flex flex-col sm:flex-row justify-center gap-3 mt-6">
+          <Button
+            color="primary"
+            size="lg"
+            ref={generateRandomIdentityButtonRef}
+            className="px-8"
+          >
+            Start playing now
+            <GenerateRandomIdentityButton buttonRef={generateRandomIdentityButtonRef} />
+          </Button>
+          <Button color="secondary" variant="outline" size="lg" className="px-8" onClick={viewLobbyButtonClicked}>
+            Browse all games
+          </Button>
+        </div>
       </div>
     </>
   )
@@ -82,27 +87,22 @@ function LoginIdentityStep({ identity }: { identity: Identity }) {
       <div className="flex justify-center text-center">
         <H1>{`Welcome back, ${pubKeyDisplayName(identity.pubkey)}.`}</H1>
       </div>
-      <div className="mt-6 mb-4 flex justify-center text-center">
-        <span className="font-bold">
-          Since nos2x is not yet supported, provide your private key or simply create a new identity.
+      <div className="mt-4 mb-8 flex justify-center text-center max-w-2xl mx-auto text-base-content/70">
+        <span>
+          Since nos2x is not yet supported, import your key or spin a fresh one. You can always head to the lobby to
+          observe ongoing games.
         </span>
       </div>
-      <div className="flex justify-center items-center space-x-4 my-4">
-        <Button color="primary" className="w-40" onClick={loginButtonClicked}>
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-3 my-4">
+        <Button color="primary" size="lg" className="px-7" onClick={loginButtonClicked}>
           Login
         </Button>
-
-        <div>or</div>
-
-        <Button color="secondary" variant="outline" ref={generateRandomIdentityButtonRef} className="w-40">
-          New Identity
+        <Button color="secondary" variant="outline" size="lg" ref={generateRandomIdentityButtonRef} className="px-7">
+          New identity
           <GenerateRandomIdentityButton buttonRef={generateRandomIdentityButtonRef} />
         </Button>
-      </div>
-
-      <div className="flex justify-center items-center space-x-4 my-4">
-        <Button color="ghost" variant="link" className="w-48" onClick={viewLobbyButtonClicked}>
-          Browse all games
+        <Button color="ghost" variant="link" size="lg" className="px-6" onClick={viewLobbyButtonClicked}>
+          Browse games
         </Button>
       </div>
     </>
@@ -154,8 +154,8 @@ function SetupCompleteStep({ identity }: { identity: Identity }) {
           } else if (game === null) {
             return (
               <>
-                <div className="mt-6 mb-4 flex justify-center">
-                  <span className="font-bold">Are you ready?</span>
+                <div className="mt-6 mb-4 flex justify-center text-center text-base-content/80">
+                  <span className="font-semibold">Ready to play? Challenge your personal bot or start a fresh game.</span>
                 </div>
                 <div className="grid grid-cols-1 justify-items-center space-y-4">
                   {/*
@@ -245,6 +245,53 @@ function SetupCompleteStep({ identity }: { identity: Identity }) {
   )
 }
 
+function QuickLinks() {
+  const links = [
+    { title: 'App', description: 'Play or resume games', to: ROUTES.home },
+    { title: 'Search', description: 'Find players and games', to: ROUTES.search },
+    { title: 'Settings', description: 'Identity, relays, theme', to: ROUTES.settings },
+    { title: 'FAQ', description: 'Common questions answered', to: ROUTES.faq },
+    { title: 'Software', description: 'RelayMate code & releases', href: 'https://github.com/Walpurga03/RelayMate' },
+    { title: 'License', description: 'MIT license details', href: 'https://github.com/Walpurga03/RelayMate/blob/main/LICENSE' },
+  ]
+
+  return (
+    <div className="mt-12">
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-sm font-semibold tracking-[0.14em] uppercase text-base-content/70">Navigate</span>
+        <div className="h-px flex-1 bg-base-300/70" />
+      </div>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {links.map((link) => {
+          const isExternal = Boolean(link.href)
+          const content = (
+            <div className="p-4 rounded-xl border border-base-200/80 bg-base-100/70 hover:border-primary/60 hover:-translate-y-[1px] transition transform">
+              <div className="font-semibold text-base mb-1">{link.title}</div>
+              <div className="text-sm text-base-content/70">{link.description}</div>
+            </div>
+          )
+
+          return isExternal ? (
+            <a
+              key={link.title}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="block no-underline"
+            >
+              {content}
+            </a>
+          ) : (
+            <Link key={link.title} to={link.to || '/'} className="block no-underline">
+              {content}
+            </Link>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 export default function IndexPage() {
   useSetWindowTitle({ text: 'chess over nostr' })
 
@@ -264,6 +311,7 @@ export default function IndexPage() {
           <div className="mt-2">
             {showIdentityStep ? <IdentityStep identity={identity} /> : <SetupCompleteStep identity={identity} />}
           </div>
+          <QuickLinks />
         </div>
       </div>
     </div>
